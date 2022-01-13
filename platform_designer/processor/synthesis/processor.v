@@ -4,19 +4,19 @@
 
 `timescale 1 ps / 1 ps
 module processor (
-		output wire [7:0] bb_we_external_connection_export, // bb_we_external_connection.export
-		input  wire       clk_clk,                          //                       clk.clk
-		output wire [7:0] din_external_connection_export,   //   din_external_connection.export
-		output wire [7:0] done_external_connection_export,  //  done_external_connection.export
-		input  wire       reset_reset_n,                    //                     reset.reset_n
-		output wire [7:0] swap_external_connection_export,  //  swap_external_connection.export
-		output wire [7:0] waddr_external_connection_export  // waddr_external_connection.export
+		output wire        bb_we_external_connection_export, // bb_we_external_connection.export
+		input  wire        clk_clk,                          //                       clk.clk
+		output wire [31:0] din_external_connection_export,   //   din_external_connection.export
+		output wire        done_external_connection_export,  //  done_external_connection.export
+		input  wire        reset_reset_n,                    //                     reset.reset_n
+		input  wire        swap_external_connection_export,  //  swap_external_connection.export
+		output wire [31:0] waddr_external_connection_export  // waddr_external_connection.export
 	);
 
 	wire  [31:0] nios2_gen2_0_data_master_readdata;                          // mm_interconnect_0:nios2_gen2_0_data_master_readdata -> nios2_gen2_0:d_readdata
 	wire         nios2_gen2_0_data_master_waitrequest;                       // mm_interconnect_0:nios2_gen2_0_data_master_waitrequest -> nios2_gen2_0:d_waitrequest
 	wire         nios2_gen2_0_data_master_debugaccess;                       // nios2_gen2_0:debug_mem_slave_debugaccess_to_roms -> mm_interconnect_0:nios2_gen2_0_data_master_debugaccess
-	wire  [16:0] nios2_gen2_0_data_master_address;                           // nios2_gen2_0:d_address -> mm_interconnect_0:nios2_gen2_0_data_master_address
+	wire  [19:0] nios2_gen2_0_data_master_address;                           // nios2_gen2_0:d_address -> mm_interconnect_0:nios2_gen2_0_data_master_address
 	wire   [3:0] nios2_gen2_0_data_master_byteenable;                        // nios2_gen2_0:d_byteenable -> mm_interconnect_0:nios2_gen2_0_data_master_byteenable
 	wire         nios2_gen2_0_data_master_read;                              // nios2_gen2_0:d_read -> mm_interconnect_0:nios2_gen2_0_data_master_read
 	wire         nios2_gen2_0_data_master_readdatavalid;                     // mm_interconnect_0:nios2_gen2_0_data_master_readdatavalid -> nios2_gen2_0:d_readdatavalid
@@ -24,7 +24,7 @@ module processor (
 	wire  [31:0] nios2_gen2_0_data_master_writedata;                         // nios2_gen2_0:d_writedata -> mm_interconnect_0:nios2_gen2_0_data_master_writedata
 	wire  [31:0] nios2_gen2_0_instruction_master_readdata;                   // mm_interconnect_0:nios2_gen2_0_instruction_master_readdata -> nios2_gen2_0:i_readdata
 	wire         nios2_gen2_0_instruction_master_waitrequest;                // mm_interconnect_0:nios2_gen2_0_instruction_master_waitrequest -> nios2_gen2_0:i_waitrequest
-	wire  [16:0] nios2_gen2_0_instruction_master_address;                    // nios2_gen2_0:i_address -> mm_interconnect_0:nios2_gen2_0_instruction_master_address
+	wire  [19:0] nios2_gen2_0_instruction_master_address;                    // nios2_gen2_0:i_address -> mm_interconnect_0:nios2_gen2_0_instruction_master_address
 	wire         nios2_gen2_0_instruction_master_read;                       // nios2_gen2_0:i_read -> mm_interconnect_0:nios2_gen2_0_instruction_master_read
 	wire         nios2_gen2_0_instruction_master_readdatavalid;              // mm_interconnect_0:nios2_gen2_0_instruction_master_readdatavalid -> nios2_gen2_0:i_readdatavalid
 	wire         mm_interconnect_0_jtag_uart_avalon_jtag_slave_chipselect;   // mm_interconnect_0:jtag_uart_avalon_jtag_slave_chipselect -> jtag_uart:av_chipselect
@@ -44,7 +44,7 @@ module processor (
 	wire  [31:0] mm_interconnect_0_nios2_gen2_0_debug_mem_slave_writedata;   // mm_interconnect_0:nios2_gen2_0_debug_mem_slave_writedata -> nios2_gen2_0:debug_mem_slave_writedata
 	wire         mm_interconnect_0_onchip_memory2_0_s1_chipselect;           // mm_interconnect_0:onchip_memory2_0_s1_chipselect -> onchip_memory2_0:chipselect
 	wire  [31:0] mm_interconnect_0_onchip_memory2_0_s1_readdata;             // onchip_memory2_0:readdata -> mm_interconnect_0:onchip_memory2_0_s1_readdata
-	wire  [12:0] mm_interconnect_0_onchip_memory2_0_s1_address;              // mm_interconnect_0:onchip_memory2_0_s1_address -> onchip_memory2_0:address
+	wire  [15:0] mm_interconnect_0_onchip_memory2_0_s1_address;              // mm_interconnect_0:onchip_memory2_0_s1_address -> onchip_memory2_0:address
 	wire   [3:0] mm_interconnect_0_onchip_memory2_0_s1_byteenable;           // mm_interconnect_0:onchip_memory2_0_s1_byteenable -> onchip_memory2_0:byteenable
 	wire         mm_interconnect_0_onchip_memory2_0_s1_write;                // mm_interconnect_0:onchip_memory2_0_s1_write -> onchip_memory2_0:write
 	wire  [31:0] mm_interconnect_0_onchip_memory2_0_s1_writedata;            // mm_interconnect_0:onchip_memory2_0_s1_writedata -> onchip_memory2_0:writedata
@@ -54,11 +54,8 @@ module processor (
 	wire   [1:0] mm_interconnect_0_done_s1_address;                          // mm_interconnect_0:done_s1_address -> done:address
 	wire         mm_interconnect_0_done_s1_write;                            // mm_interconnect_0:done_s1_write -> done:write_n
 	wire  [31:0] mm_interconnect_0_done_s1_writedata;                        // mm_interconnect_0:done_s1_writedata -> done:writedata
-	wire         mm_interconnect_0_swap_s1_chipselect;                       // mm_interconnect_0:swap_s1_chipselect -> swap:chipselect
 	wire  [31:0] mm_interconnect_0_swap_s1_readdata;                         // swap:readdata -> mm_interconnect_0:swap_s1_readdata
 	wire   [1:0] mm_interconnect_0_swap_s1_address;                          // mm_interconnect_0:swap_s1_address -> swap:address
-	wire         mm_interconnect_0_swap_s1_write;                            // mm_interconnect_0:swap_s1_write -> swap:write_n
-	wire  [31:0] mm_interconnect_0_swap_s1_writedata;                        // mm_interconnect_0:swap_s1_writedata -> swap:writedata
 	wire         mm_interconnect_0_bb_we_s1_chipselect;                      // mm_interconnect_0:bb_we_s1_chipselect -> bb_we:chipselect
 	wire  [31:0] mm_interconnect_0_bb_we_s1_readdata;                        // bb_we:readdata -> mm_interconnect_0:bb_we_s1_readdata
 	wire   [1:0] mm_interconnect_0_bb_we_s1_address;                         // mm_interconnect_0:bb_we_s1_address -> bb_we:address
@@ -90,7 +87,7 @@ module processor (
 		.out_port   (bb_we_external_connection_export)       // external_connection.export
 	);
 
-	processor_bb_we din (
+	processor_din din (
 		.clk        (clk_clk),                             //                 clk.clk
 		.reset_n    (~rst_controller_reset_out_reset),     //               reset.reset_n
 		.address    (mm_interconnect_0_din_s1_address),    //                  s1.address
@@ -170,18 +167,15 @@ module processor (
 		.freeze     (1'b0)                                              // (terminated)
 	);
 
-	processor_bb_we swap (
-		.clk        (clk_clk),                              //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),      //               reset.reset_n
-		.address    (mm_interconnect_0_swap_s1_address),    //                  s1.address
-		.write_n    (~mm_interconnect_0_swap_s1_write),     //                    .write_n
-		.writedata  (mm_interconnect_0_swap_s1_writedata),  //                    .writedata
-		.chipselect (mm_interconnect_0_swap_s1_chipselect), //                    .chipselect
-		.readdata   (mm_interconnect_0_swap_s1_readdata),   //                    .readdata
-		.out_port   (swap_external_connection_export)       // external_connection.export
+	processor_swap swap (
+		.clk      (clk_clk),                            //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),    //               reset.reset_n
+		.address  (mm_interconnect_0_swap_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_swap_s1_readdata), //                    .readdata
+		.in_port  (swap_external_connection_export)     // external_connection.export
 	);
 
-	processor_bb_we waddr (
+	processor_din waddr (
 		.clk        (clk_clk),                               //                 clk.clk
 		.reset_n    (~rst_controller_reset_out_reset),       //               reset.reset_n
 		.address    (mm_interconnect_0_waddr_s1_address),    //                  s1.address
@@ -247,10 +241,7 @@ module processor (
 		.onchip_memory2_0_s1_chipselect                 (mm_interconnect_0_onchip_memory2_0_s1_chipselect),           //                                         .chipselect
 		.onchip_memory2_0_s1_clken                      (mm_interconnect_0_onchip_memory2_0_s1_clken),                //                                         .clken
 		.swap_s1_address                                (mm_interconnect_0_swap_s1_address),                          //                                  swap_s1.address
-		.swap_s1_write                                  (mm_interconnect_0_swap_s1_write),                            //                                         .write
 		.swap_s1_readdata                               (mm_interconnect_0_swap_s1_readdata),                         //                                         .readdata
-		.swap_s1_writedata                              (mm_interconnect_0_swap_s1_writedata),                        //                                         .writedata
-		.swap_s1_chipselect                             (mm_interconnect_0_swap_s1_chipselect),                       //                                         .chipselect
 		.waddr_s1_address                               (mm_interconnect_0_waddr_s1_address),                         //                                 waddr_s1.address
 		.waddr_s1_write                                 (mm_interconnect_0_waddr_s1_write),                           //                                         .write
 		.waddr_s1_readdata                              (mm_interconnect_0_waddr_s1_readdata),                        //                                         .readdata

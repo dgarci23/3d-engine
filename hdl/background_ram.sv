@@ -9,7 +9,7 @@ module background_ram
 		input				[$clog2(NUMBER_COLORS):0] din,
 		input				[$clog2(320*240)-1:0]	  waddr,
 		input												  we,
-		output   reg   [$clog2(NUMBER_COLORS):0] dout
+		output         [$clog2(NUMBER_COLORS):0] dout
 	);
 	
 	parameter IMAGE_FILE = FILENAME;

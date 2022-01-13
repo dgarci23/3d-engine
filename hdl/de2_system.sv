@@ -4,7 +4,7 @@ module de2_system
 
 	(
 		input								CLOCK_50,
-		output				 [2:0]		LEDR,
+		output				 [4:0]		LEDR,
 		input				 [17:0]		SW,
 		input				 [0:0]		KEY,
 		/////////// VGA /////////////
@@ -22,15 +22,17 @@ module de2_system
 	wire [7:0] 	yvga;
    wire [$clog2(NUMBER_COLORS):0]  color_front, color_back, color_vga, din;
 	wire [$clog2(320*240)-1:0] waddr;
-	reg bb_we, fb_we;
+	wire bb_we, fb_we;
 	
 	assign LEDR[0] = bb_we;
 	assign LEDR[1] = fb_we;
 	assign LEDR[2] = select;
+	assign LEDR[3] = done;
+	assign LEDR[4] = swap;
 	
 	wire TRIGGER;
 	
-	reg select, swap, done;
+	wire select, swap, done;
 	
 	always @(negedge TRIGGER)
 		if (KEY[0])
