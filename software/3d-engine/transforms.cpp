@@ -309,10 +309,10 @@ mat4x4 getWorldMatrix(float angle) {
 	mat4x4 matRotZ, matRotX, matTrans, matWorld;
 
 	matRotX = getMatRotX(0.7f* angle);
-	matRotZ = getMatRotZ(angle * 0.9f);
+	matRotZ = getMatRotZ(angle * 0.5f);
 
 	matWorld = getIdentityMatrix();
-	matTrans = getTranslationMatrix(angle*0.00f, 0.01f*angle, 16.0f);
+	matTrans = getTranslationMatrix(angle*0.00f, 0.01f*angle, 16.0f +  0.01f*angle);
 
 	matWorld = MultiplyMatrixMatrix(matRotZ, matRotX);
 	matWorld = MultiplyMatrixMatrix(matWorld, matTrans);

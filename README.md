@@ -1,5 +1,7 @@
 # 3d-engine
 
+For the software and the math behind 3d projections, I was heavily inspired by Youtuber [OneLoneCoder](https://github.com/OneLoneCoder). In the end of this file there are links to relevant files in the repository that show the project in more detail. To see the final result, you can check out the video included. ![Screenshot](SpaceshipScreenshot.jpg)
+
 ## Starting with VGA: VGA Controller
 
 The VGA controller is based on [University of Toronto's VGA Controller](https://www.eecg.utoronto.ca/~jayar/ece241_08F/vga/). Since the DE2-115 board has a 50 MHz clock, we can follow the [timing specifications](http://tinyvga.com/vga-timing/640x480@60Hz) for a 25 MHz, 640x480 VGA signal. In order to reduce memory usage in the board, the resolution is dropped to 320x240.
@@ -78,3 +80,7 @@ In order to simplify the transformations we are making in the making function, w
 
 ### MATLAB
 MATLAB function `imread()` reads the image file into a three channel array with the RGB code of each pixel. Then `imresize(,[x y])` resizes the original image to fit the VGA resolution. `rgb2ind(, number_of_colors)` transforms the RGB array into a single channel array.
+
+## Important files
+
+In the hdl folder, you can find al SystemVerilog design files for the different components. In the platform designer folder, you can find the processor .qsys file. Go into the ![software](https://github.com/dgarci23/3d-engine/tree/main/software/3d-engine) folder to find the header and source files for the code in this project.
