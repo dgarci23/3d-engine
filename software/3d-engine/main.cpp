@@ -18,6 +18,7 @@
 #include "load.h"
 
 #include <cstdio>
+#include <time.h>
 
 
 char getColor (float lum){
@@ -26,11 +27,11 @@ char getColor (float lum){
 
 
 int main() {
+
 	fillScreen(0);
 
-	Mesh meshCube; // = LoadFromObjectFile();
 
-	getCube(meshCube);
+	Mesh meshCube = LoadFromObjectFile();
 
 	float fTheta = 0;
 	float fElapsedTime = 5;
@@ -40,7 +41,6 @@ int main() {
 	Point camera;
 
 	while(1){
-
 
 		fTheta += 1.0f * fElapsedTime;
 

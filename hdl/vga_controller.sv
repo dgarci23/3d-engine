@@ -4,22 +4,22 @@ module vga_controller
 
 
 	(
-		CLOCK_50, 
-		resetn,
-		x, 
-		y, 
-		VGA_R, 
-		VGA_G, 
-		VGA_B,
-		VGA_R_in,
-		VGA_G_in,
-		VGA_B_in,
-		VGA_HS, 
-		VGA_VS, 
-		VGA_BLANK,
-		VGA_SYNC, 
-		VGA_CLK,
-		TRIGGER
+		input 																		CLOCK_50, 
+		input																			resetn,
+		input 			[9:0] 													VGA_R_in,
+		input 			[9:0] 													VGA_G_in,
+		input 			[9:0] 													VGA_B_in,
+		output 	reg 	[((RESOLUTION == "320x240") ? (8) : (7)):0] 	x,
+		output 	reg 	[((RESOLUTION == "320x240") ? (7) : (6)):0] 	y,
+		output  			[9:0] 													VGA_R,
+		output  			[9:0] 													VGA_G,
+		output  			[9:0] 													VGA_B,
+		output 	reg 																VGA_HS,
+		output 	reg 																VGA_VS,
+		output 	reg 																VGA_BLANK,
+		output 																		VGA_SYNC,
+		output 	reg 																VGA_CLK,
+		output 																		TRIGGER
 	);
 	
 	// System parameters
@@ -39,26 +39,7 @@ module vga_controller
 	parameter C_HORZ_SYNC_END    = 10'd754; 
 	parameter C_HORZ_TOTAL_COUNT = 10'd800;
 	
-	// Input and output declarations
-	
-	input CLOCK_50, resetn;
-	input [9:0] VGA_R_in;
-	input [9:0] VGA_G_in;
-	input [9:0] VGA_B_in;
-	output reg [((RESOLUTION == "320x240") ? (8) : (7)):0] x;
-	output reg [((RESOLUTION == "320x240") ? (7) : (6)):0] y;
-	output  [9:0] VGA_R;
-	output  [9:0] VGA_G;
-	output  [9:0] VGA_B;
-	output reg VGA_HS;
-	output reg VGA_VS;
-	output reg VGA_BLANK;
-	output VGA_SYNC;
-   output reg VGA_CLK;
-	output TRIGGER;
-	
 	// Local Signals
-	
 	
 	reg VGA_HS1;
 	reg VGA_VS1;
@@ -142,9 +123,8 @@ module vga_controller
 	assign VGA_R = on_screen ? VGA_R_in : 0;
 	assign VGA_G = on_screen ? VGA_G_in : 0;
 	assign VGA_B = on_screen ? VGA_B_in : 0;
-
 	
-	assign TRIGGER = VGA_VS;
+	assign Trigger = VGA_VS;
 	
 
 endmodule

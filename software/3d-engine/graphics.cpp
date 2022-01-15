@@ -348,7 +348,7 @@ void sortMesh(Mesh &m) {
 }
 
 void setMesh(Mesh &m){
-  for (auto tri : m.tris) {
+  for (auto tri : m.tris){
 	setFillTriangle(tri);
   }
 }

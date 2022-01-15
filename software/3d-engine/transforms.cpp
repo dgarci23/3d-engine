@@ -312,7 +312,7 @@ mat4x4 getWorldMatrix(float angle) {
 	matRotZ = getMatRotZ(angle * 0.9f);
 
 	matWorld = getIdentityMatrix();
-	matTrans = getTranslationMatrix(angle*0.00f, 0.0f, 6.0f);
+	matTrans = getTranslationMatrix(angle*0.00f, 0.01f*angle, 16.0f);
 
 	matWorld = MultiplyMatrixMatrix(matRotZ, matRotX);
 	matWorld = MultiplyMatrixMatrix(matWorld, matTrans);
