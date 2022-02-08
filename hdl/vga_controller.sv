@@ -19,7 +19,7 @@ module vga_controller
 		output 	reg 																VGA_BLANK,
 		output 																		VGA_SYNC,
 		output 	reg 																VGA_CLK,
-		output 																		TRIGGER
+		output 																		Trigger
 	);
 	
 	// System parameters

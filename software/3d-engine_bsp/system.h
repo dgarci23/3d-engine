@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'processor'
  * SOPC Builder design path: C:/Users/david/Desktop/Logic_Design_Projects/3d-engine/processor.sopcinfo
  *
- * Generated: Fri Jan 14 15:01:08 EST 2022
+ * Generated: Sat Feb 05 20:16:07 EST 2022
  */
 
 /*
@@ -145,6 +145,7 @@
 #define __ALTERA_AVALON_ONCHIP_MEMORY2
 #define __ALTERA_AVALON_PIO
 #define __ALTERA_NIOS2_GEN2
+#define __ALTPLL
 
 
 /*
@@ -181,6 +182,20 @@
 #define ALT_STDOUT_PRESENT
 #define ALT_STDOUT_TYPE "altera_avalon_jtag_uart"
 #define ALT_SYSTEM_NAME "processor"
+
+
+/*
+ * altpll_0 configuration
+ *
+ */
+
+#define ALTPLL_0_BASE 0x0
+#define ALTPLL_0_IRQ -1
+#define ALTPLL_0_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define ALTPLL_0_NAME "/dev/altpll_0"
+#define ALTPLL_0_SPAN 16
+#define ALTPLL_0_TYPE "altpll"
+#define ALT_MODULE_CLASS_altpll_0 altpll
 
 
 /*

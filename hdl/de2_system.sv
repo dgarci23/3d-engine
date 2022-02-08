@@ -13,11 +13,11 @@ module de2_system
 		output							VGA_SYNC,	//	VGA SYNC
 		output			[9:0]			VGA_R,   	//	VGA Red[9:0]
 		output			[9:0]			VGA_G,	 	//	VGA Green[9:0]
-		output			[9:0]			VGA_B,	   //	VGA Blue[9:0]
+		output			[9:0]			VGA_B	   //	VGA Blue[9:0]
 	);
 
 	// Connects vga controller and the buffers
-  wire [8:0] 	xvga;
+	wire [8:0] 	xvga;
 	wire [7:0] 	yvga;
 
 	// output and input from and to the buffers
@@ -31,7 +31,7 @@ module de2_system
 	wire select, swap, done, bb_we, fb_we;
 
 	// Controls the updating of front and back buffers
-	always @(negedge TRIGGER)
+	always @(negedge Trigger)
 		if (KEY[0])
 			if (done) begin
 				select = 1'b1; fb_we = 1'b1; swap = 1'b1;
@@ -47,20 +47,36 @@ module de2_system
 	assign color_vga = select ? color_back : color_front;
 
 	// NIOS II Processor - Platform Designer Unit
-	processor u0 (
-		.clk_clk                          (CLOCK_50),
+	/*processor u0 (
+		.clk_clk                          (clk),
 		.reset_reset_n                    (1'b1),
 		.done_external_connection_export  (done),
 		.swap_external_connection_export  (swap),
 		.bb_we_external_connection_export (bb_we),
 		.waddr_external_connection_export (waddr),
 		.din_external_connection_export   (din)
+	);*/
+	
+	wire clk;
+	
+	processor u0 (
+		.bb_we_external_connection_export (bb_we), // bb_we_external_connection.export
+		.din_external_connection_export   (din),   //   din_external_connection.export
+		.done_external_connection_export  (done),  //  done_external_connection.export
+		.reset_reset_n                    (1'b1),                    //                     reset.reset_n
+		.swap_external_connection_export  (swap),  //  swap_external_connection.export
+		.waddr_external_connection_export (waddr), // waddr_external_connection.export
+		.clk_clk                          (clk),                          //                       clk.clk
+		.altpll_0_c0_clk                  (clk),                  //               altpll_0_c0.clk
+		.clock_bridge_0_in_clk_clk        (CLOCK_50),         //     clock_bridge_0_in_clk.clk
+		.altpll_0_areset_conduit_export   (1'b0),   //   altpll_0_areset_conduit.export
+		.altpll_0_locked_conduit_export   (1'b0)    //   altpll_0_locked_conduit.export
 	);
 
 	// Back buffer, receives updates from the processor, updates the front buffer
 	background_ram #(.NUMBER_COLORS(NUMBER_COLORS)) back_buffer (
 		// System
-		.clk(CLOCK_50),
+		.clk(clk),
 		// Pixel coordinates
 		.x(xvga),
 		.y(yvga),
@@ -75,7 +91,7 @@ module de2_system
 	// Front buffer, receives updates from the back buffer
 	background_ram #(NUMBER_COLORS) front_buffer (
 		// System
-		.clk(CLOCK_50),
+		.clk(clk),
 		// Pixel coordinates
 		.x(xvga),
 		.y(yvga),

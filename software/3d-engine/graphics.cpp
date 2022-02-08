@@ -44,9 +44,9 @@ void drawPoint(Point a, int color){
 	waitSwap(1);
 	IOWR_ALTERA_AVALON_PIO_DATA(DONE_BASE, 0);
 	setPoint(a, color);
-    IOWR_ALTERA_AVALON_PIO_DATA(DONE_BASE, 1);
-    waitSwap(0);
-    IOWR_ALTERA_AVALON_PIO_DATA(DONE_BASE, 0);
+  IOWR_ALTERA_AVALON_PIO_DATA(DONE_BASE, 1);
+  waitSwap(0);
+  IOWR_ALTERA_AVALON_PIO_DATA(DONE_BASE, 0);
 }
 
 Point drawPoint(float x, float y, float z, int color){
@@ -367,7 +367,3 @@ void waitSwap(int i){
     }
     return;
 }
-
-
-
-

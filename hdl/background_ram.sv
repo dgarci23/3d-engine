@@ -12,7 +12,6 @@ module background_ram
 		output         [$clog2(NUMBER_COLORS):0] dout
 	);
 	
-	parameter IMAGE_FILE = FILENAME;
 	
 	wire [$clog2(320*240)-1:0] raddr  = y + 240*x;
 	

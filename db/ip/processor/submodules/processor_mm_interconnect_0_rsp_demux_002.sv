@@ -27,7 +27,7 @@
 
 // ------------------------------------------
 // Generation parameters:
-//   output_name:         processor_mm_interconnect_0_rsp_demux
+//   output_name:         processor_mm_interconnect_0_rsp_demux_002
 //   ST_DATA_W:           98
 //   ST_CHANNEL_W:        9
 //   NUM_OUTPUTS:         2
@@ -40,7 +40,7 @@
 // 15610 - Warning: Design contains x input pin(s) that do not drive logic
 //------------------------------------------
 
-module processor_mm_interconnect_0_rsp_demux
+module processor_mm_interconnect_0_rsp_demux_002
 (
     // -------------------
     // Sink
