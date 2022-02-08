@@ -1,6 +1,6 @@
 # 3d-engine
 
-For the software and the math behind 3d projections, I was heavily inspired by Youtuber [OneLoneCoder](https://github.com/OneLoneCoder). In the end of this file there are links to relevant files in the repository that show the project in more detail. To see the final result, you can check out the video included. ![Screenshot](SpaceshipScreenshot.jpg)
+For the software and the math behind 3d projections, I was heavily inspired by Youtuber [OneLoneCoder](https://github.com/OneLoneCoder). In the end of this file there are links to relevant files in the repository that show the project in more detail. To see the final result, you can check out the video included. ![Screenshot](SpaceshipScreenshot.JPG)
 
 ## Starting with VGA: VGA Controller
 
