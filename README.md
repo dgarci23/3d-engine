@@ -1,6 +1,6 @@
 # 3d-engine
 
-For the software and the math behind 3d projections, I was heavily inspired by Youtuber [OneLoneCoder](https://github.com/OneLoneCoder). In the end of this file there are links to relevant files in the repository that show the project in more detail. To see the final result, you can check out the video included. ![Screenshot](docs/SpaceshipScreenshot.JPG)
+For the software and the math behind 3d projections, I was heavily inspired by Youtuber [OneLoneCoder](https://github.com/OneLoneCoder). In the end of this file there are links to relevant files in the repository that show the project in more detail. To see the final result, you can check out the video included. ![Screenshot](docs/SpaceshipScreenshot.jpg)
 
 ## Starting with VGA: VGA Controller
 
@@ -12,7 +12,9 @@ We will use memory to store the color value of each pixel, with the VGA controll
 
 To reduce memory use even further, we will operate with a color palette. The color palette will transform the value in the pixel buffer to the three RGB channels that go into the DE2-115 depending on the color matching inside the color palette ROM.
 
-We can work with a reduced 4 color palette, that requires 2 bits in each memory address, but those 4 colors can be any color available by the 3 RGB channels in VGA.
+We can work with a reduced 4 color palette, that requires 2 bits in each memory address, but those 4 colors can be any color available by the 3 RGB channels in VGA. The diagram below shows the system with the colorm palette ROM.
+
+![Color ROM](docs/color_rom.jpg)
 
 ## Adding the NIOS II processor
 
@@ -27,6 +29,10 @@ A simple solution to this issue is to implement objects as sprites. Sprites are 
 The sprite methods is suitable for 2D applications, where the shape of an object is usually constant and the things that change are usually only the position. For 3D applications, we require more control of individual pixels so sprites do not solve the tearing issue. This section we will develop how the use of a double pixel buffer can help solve this issue.
 
 The idea being double buffering is that the data of the rendered image is present in two buffers, a front buffer and a back buffer. In most cycles, the VGA controller reads the data from the front buffer. When the processor starts a writing cycle, it writes to the back buffer. When the writing process is over, the VGA controller reads the data from the back buffer instead and the front buffer gets updated with the back buffer data. After one cycle is done, the VGA controller returns to read from the front buffer. Since rendering requires reading each pixel of the buffer, writing the new data to the front buffer only takes one cycle, so the image goes from not existing to being fully rendered without any intermediate rendering.
+
+The diagram below shows the new system with the front and back buffer.
+
+![Double Buffering](docs/double_buffer.jpg)
 
 The processor first waits for the control signal swap to start the process of writing (this prevents the processor from updating the back buffer when the front buffer is being updated). It then sets the control signal done to low (this control signal signifies that the processor has a finished a writing cycle). After that, the processor writes the new color values to the back buffer. It then sets done high, and waits for the writing cycle to be completed before making done low again.
 
@@ -58,7 +64,7 @@ void getmatProj(mat4x4 &matProj){
 
 ### Rotations
 
-We are also interested in rotating objects. Rotations are also fairly straightforward. Using the following reference we can setup a rotation matrix for each of the three axis similar to the Projection Matrix. ![Rotation Matrix](RotationMatrix.jpg).
+We are also interested in rotating objects. Rotations are also fairly straightforward. Using the following reference we can setup a rotation matrix for each of the three axis similar to the Projection Matrix. ![Rotation Matrix](docs/RotationMatrix.jpg).
 
 ### Scaling Into View
 
@@ -83,4 +89,4 @@ MATLAB function `imread()` reads the image file into a three channel array with 
 
 ## Important files
 
-In the hdl folder, you can find al SystemVerilog design files for the different components. In the platform designer folder, you can find the processor .qsys file. Go into the ![software](https://github.com/dgarci23/3d-engine/tree/main/software/3d-engine) folder to find the header and source files for the code in this project.
+In the hdl folder, you can find al SystemVerilog design files for the different components. In the platform designer folder, you can find the processor .qsys file. Go into the [software](https://github.com/dgarci23/3d-engine/tree/main/software/3d-engine) folder to find the header and source files for the code in this project.
